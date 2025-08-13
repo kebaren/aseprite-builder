@@ -125,15 +125,6 @@ jobs:
       - name: Create release
         working-directory: aseprite/build/bin
         run: 7z -tzip a Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}.zip *
-      - name: Delete existing asset
-        run: |
-            ASSET_ID=$(gh api repos/${{ github.repository }}/releases/tags/v1.3.14.2 \
-            | jq '.assets[] | select(.name=="Aseprite-v1.3.14.2-Linux.zip") | .id')
-            if [ ! -z "$ASSET_ID" ]; then
-            gh api --method DELETE repos/${{ github.repository }}/releases/assets/$ASSET_ID
-            fi
-        env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload release
         uses: svenstaro/upload-release-action@v2
         with:
