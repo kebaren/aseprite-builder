@@ -127,11 +127,11 @@ jobs:
         run: echo "DATE=$(data + '%Y-%m-%d')">>$GITHUB_ENV
       - name: Create release
         working-directory: aseprite/build/bin
-        run: 7z -tzip a Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}-${{env.DATE}}.zip *
+        run: 7z -tzip a Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}-${{DATE}}.zip *
       - name: Upload release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: aseprite/build/bin/Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}-${{env.DATE}}.zip
-          asset_name: Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}.zip
+          file: aseprite/build/bin/Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}-${{DATE}}.zip
+          asset_name: Aseprite-${{ needs.create-release.outputs.release-tag }}-${{ runner.os }}-${{DATE}}.zip
           tag: ${{ needs.create-release.outputs.release-tag }}
